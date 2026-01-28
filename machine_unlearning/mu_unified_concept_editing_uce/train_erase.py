@@ -85,7 +85,7 @@ def edit_model(ldm_stable, old_text_, new_text_, retain_text_,
         if (layers_to_edit is not None) and (layer_num not in layers_to_edit):
             continue
 
-        with torch.autocast("cuda"):
+        with torch.autocast("cuda", enabled=False):
             #### prepare input k* and v*
             with torch.no_grad():
                 # mat1 = \lambda W + \sum{v k^T}
@@ -257,7 +257,7 @@ if __name__ == '__main__':
 
     if preserve_scale is None:
         preserve_scale = max(0.1, 1 / len(retain_texts))
-    ldm_stable = StableDiffusionPipeline.from_pretrained(args.ckpt, torch_dtype=torch.float16).to(device)
+    ldm_stable = StableDiffusionPipeline.from_pretrained(args.ckpt, torch_dtype=torch.float32,use_safetensors=False).to(device)
     print("Old texts: ", old_texts)
     print("New texts: ", new_texts)
     ldm_stable = edit_model(ldm_stable=ldm_stable, old_text_=old_texts, new_text_=new_texts,
