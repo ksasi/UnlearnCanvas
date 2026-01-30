@@ -260,6 +260,7 @@ if __name__ == '__main__':
         preserve_scale = max(0.1, 1 / len(retain_texts))
     ldm_stable = StableDiffusionPipeline.from_pretrained(args.ckpt, torch_dtype=torch.float32,use_safetensors=False).to(device)
     if args.unlearned_weights:
+        print("Loading unlearned model checkpoint for unet")
         unlearned_weights = torch.load(args.unlearned_weights, map_location=device)
         ldm_stable.unet.load_state_dict(unlearned_weights, strict=False)
     print("Old texts: ", old_texts)
