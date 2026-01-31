@@ -197,7 +197,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     os.makedirs(args.output_dir, exist_ok=True)
-    output_path = os.path.join(args.output_dir, args.theme)
+    output_path = os.path.join(args.output_dir, '_'.join(args.theme))
     technique = args.technique
     device = 'cuda'
     preserve_scale = args.preserve_scale
