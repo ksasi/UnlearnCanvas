@@ -184,7 +184,7 @@ if __name__ == '__main__':
                         default='replace')
     parser.add_argument('--ckpt', help='path to checkpoint', type=str,
                         default='../main_sd_image_editing/ckpts/sd_model/diffuser/style50/step19999')
-    parser.add_argument('--theme', help='theme to forget', type=str, required=True,
+    parser.add_argument('--theme', help='theme to forget', type=str, required=True, nargs='+',
                         choices=theme_available + class_available)
     parser.add_argument('--preserve_scale', help='scale to preserve concepts', type=float, required=False, default=None)
     parser.add_argument('--preserve_number', help='number of preserve concepts', type=int, required=False, default=None)
@@ -206,7 +206,8 @@ if __name__ == '__main__':
     guided_concepts = args.guided_concepts
     preserve_concepts = args.preserve_concepts
     preserve_number = args.preserve_number
-    concepts = [args.theme]
+    # concepts = [args.theme]
+    concepts = args.theme
 
     old_texts = []
 
@@ -259,10 +260,10 @@ if __name__ == '__main__':
     if preserve_scale is None:
         preserve_scale = max(0.1, 1 / len(retain_texts))
     ldm_stable = StableDiffusionPipeline.from_pretrained(args.ckpt, torch_dtype=torch.float32,use_safetensors=False).to(device)
-    if args.unlearned_weights:
-        print("Loading unlearned model checkpoint for unet")
-        unlearned_weights = torch.load(args.unlearned_weights, map_location=device)
-        ldm_stable.unet.load_state_dict(unlearned_weights, strict=False)
+    # if args.unlearned_weights:
+    #     print("Loading unlearned model checkpoint for unet")
+    #     unlearned_weights = torch.load(args.unlearned_weights, map_location=device)
+    #     ldm_stable.unet.load_state_dict(unlearned_weights, strict=False)
     print("Old texts: ", old_texts)
     print("New texts: ", new_texts)
     ldm_stable = edit_model(ldm_stable=ldm_stable, old_text_=old_texts, new_text_=new_texts,
