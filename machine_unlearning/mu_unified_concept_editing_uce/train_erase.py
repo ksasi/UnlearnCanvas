@@ -212,18 +212,19 @@ if __name__ == '__main__':
     old_texts = []
 
     additional_prompts = []
-    if args.theme in theme_available:
-        additional_prompts.append('image in {concept} Style')
-        additional_prompts.append('art by {concept}')
-        additional_prompts.append('artwork by {concept}')
-        additional_prompts.append('picture by {concept}')
-        additional_prompts.append('style of {concept}')
-    else:  # args.theme in class_available
-        additional_prompts.append('image of {concept}')
-        additional_prompts.append('photo of {concept}')
-        additional_prompts.append('portrait of {concept}')
-        additional_prompts.append('picture of {concept}')
-        additional_prompts.append('painting of {concept}')
+    for concept in concepts:
+        if concept in theme_available:
+            additional_prompts.append('image in {concept} Style')
+            additional_prompts.append('art by {concept}')
+            additional_prompts.append('artwork by {concept}')
+            additional_prompts.append('picture by {concept}')
+            additional_prompts.append('style of {concept}')
+        else:  # args.theme in class_available
+            additional_prompts.append('image of {concept}')
+            additional_prompts.append('photo of {concept}')
+            additional_prompts.append('portrait of {concept}')
+            additional_prompts.append('picture of {concept}')
+            additional_prompts.append('painting of {concept}')
     if not add_prompts:
         additional_prompts = []
     concepts_ = []
