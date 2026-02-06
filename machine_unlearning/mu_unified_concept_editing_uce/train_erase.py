@@ -193,7 +193,7 @@ if __name__ == '__main__':
     parser.add_argument('--add_prompts', help='option to add additional prompts', action="store_true", required=False,
                         default=False)
     parser.add_argument('--output_dir', type=str, default="results/style50/")
-    parser.add_argument('--unlearned_weights', type=str, required=False, default=None) 
+    # parser.add_argument('--unlearned_weights', type=str, required=False, default=None) 
 
     args = parser.parse_args()
     os.makedirs(args.output_dir, exist_ok=True)
