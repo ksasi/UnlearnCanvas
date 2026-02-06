@@ -249,12 +249,14 @@ if __name__ == '__main__':
     retain_texts = [""]
 
     for theme in theme_available:
-        if args.theme == theme:
+        if theme in args.theme:
+        # if args.theme == theme:
             continue
         if theme == "Seed_Images":
             theme = "Photo"
         for concept in class_available:
-            if concept == args.theme:
+            if concept in args.theme:
+            # if concept == args.theme:
                 continue
             retain_texts.append(f'A {concept} image in {theme} style')
 
